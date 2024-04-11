@@ -10,6 +10,8 @@
 #include "../../header/Main/GameService.h"
 #include "../../header/Gameplay/HighScore.h"
 
+
+
 namespace Player
 {
 	using namespace Global;
@@ -27,6 +29,7 @@ namespace Player
 		player_view = new PlayerView();
 		player_model = new PlayerModel();
 	}
+
 
 	PlayerController::~PlayerController()
 	{
@@ -52,6 +55,8 @@ namespace Player
 			updateFreezDuration();
 			break;
 		}
+
+
 
 		updatePowerupDuration();
 		player_view->update();
@@ -200,10 +205,24 @@ namespace Player
 		if (event_service->pressedRightArrowKey() || event_service->pressedDKey()) 
 			moveRight();
 
-		//if (event_service->pressedLeftMouseButton()) 
-		//	processBulletFire();
+		if (event_service->pressedLeftMouseButton()) 
+			processBulletFire();
 	}
 
+	void PlayerController::processBulletFire()
+	{
+		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BULLET_FIRE);
+
+		sf::Vector2f playerPosition = getPlayerPosition(); // Get the player's position
+
+		// Increase bullet count (assuming logic exists)
+		increaseBulletsFired(1);
+
+
+		elapsed_fire_duration = 0;
+		
+	}
+	
 	void PlayerController::moveLeft()
 	{
 		sf::Vector2f currentPosition = player_model->getPlayerPosition();

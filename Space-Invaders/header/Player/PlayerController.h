@@ -7,22 +7,26 @@
 
 namespace Player
 {
+    class PlayerView;
     class PlayerController : public Collision::ICollider
     {
     private:
-        float elapsed_shield_duration;
+       float elapsed_shield_duration;  // Added semicolon
+
         float elapsed_rapid_fire_duration;
         float elapsed_tripple_laser_duration;
 
         float elapsed_fire_duration;
         float elapsed_freez_duration;
+        float bulletFireDelay;
 
-        PlayerView* player_view;
+        PlayerView* player_view; // This line corresponds to line 20
         PlayerModel* player_model;
 
         void processPlayerInput();
         void moveLeft();
         void moveRight();
+        
 
         bool processPowerupCollision(ICollider* other_collider);
         bool processEnemyCollision(ICollider* other_collider);
@@ -55,6 +59,7 @@ namespace Player
         void enableShield();
         void enableRapidFire();
         void enableTrippleLaser();
+        void processBulletFire();
 
         sf::Vector2f getPlayerPosition();
         PlayerState getPlayerState();
